@@ -11,8 +11,11 @@ pipeline {
             steps {
                 sshagent(['aws']) {
                     script {
-                        def content = "[server]\n${params.HOST} port=${params.PORT}"
-                        writeFile file: 'inventory.ini', text: content
+                        def invContent = "[server]\n${params.HOST}"
+                        writeFile file: 'inventory.ini', text: invContent
+			
+			def envContent = "PORT=${parmas.PORT}"
+			writeFile file: '.env.', text: envContent
                         sh 'ansible-playbook -i inventory.ini playbook.yaml'
                     }
                 }

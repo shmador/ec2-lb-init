@@ -10,6 +10,6 @@
       lineinfile:
         path: /etc/nginx/sites-available/default
         regexp: '^\s*listen'
-        line: listen {{ PORT }};
+        line: listen {{ lookup('ansible.builtin.env', 'PORT', default='80') }};
         backrefs: yes
 
