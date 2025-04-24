@@ -20,4 +20,5 @@
         dest: /var/www/html/index.html
 
   vars:
-    new_header: "<h1>Dor's page</h1>"
+    page_url: "https://www.sheldonbrown.com/web_sample1.html"
+    heading: "Welcome to My Site"

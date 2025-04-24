@@ -1,6 +1,4 @@
-{#-- fetch the remote page into a variable --#}
-{% set page = lookup('url', 'https://www.sheldonbrown.com/web_sample1.html') %}
-
-{#-- replace the first <h1>…</h1> block with our new header --#}
-{{ page | regex_replace('<h1>.*?</h1>', new_header, multiline=True) }}
+{{ lookup('url', page_url)
+   | replace('<body>', '<body><h1>' ~ heading ~ '</h1>')
+   | safe }}
 
