@@ -10,7 +10,11 @@ pipeline {
         stage('Add host to known_hosts') {
             steps {
                 sshagent(['dor-ec2']) {
-                    sh "ssh-keyscan -H ${params.HOST} >> ~/.ssh/known_hosts"
+                    sh """
+                        mkdir -p ~/.ssh
+                        chmod 700 ~/.ssh
+                        ssh-keyscan -H ${params.HOST} >> ~/.ssh/known_hosts
+                    """
                 }
             }
         }
