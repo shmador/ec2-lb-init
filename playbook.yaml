@@ -19,6 +19,11 @@
         src: index.html.j2
         dest: /var/www/html/index.html
 
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+
   vars:
     page_url: "https://www.sheldonbrown.com/web_sample1.html"
     heading: "Welcome to My Site"
