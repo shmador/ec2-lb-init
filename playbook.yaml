@@ -1,0 +1,15 @@
+- name: config nginx
+  hosts: server
+  become: yes
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        update_cache: yes
+    - name: Update port
+      lineinfile:
+        path: /etc/nginx/sites-available/default
+        regexp: '^\s*listen'
+        line: listen {{ PORT }};
+        backrefs: yes
+

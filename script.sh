@@ -1,9 +1,1 @@
-#!/bin/bash
-JENKINS_URL="213.8.6.132"
-JOB_NAME="dor-test"
-JENKINS_USER="shmador"
-JENKINS_TOKEN="11b8e4644032c76fc1a7af8e096f93ce2c"
-PORT_PARAM="3000"
-JENKINS_PASS="dor258456"
-curl -I -u auto:${JENKINS_PASS} http://${JENKINS_URL}/job/${JENKINS_USER}/build?token=${JENKINS_TOKEN}&port=${PORT_PARAM}&host=${HOST_PARAM}
-
+curl -X POST --user shmador:11b8e4644032c76fc1a7af8e096f93ce2c http://localhost:8080/job/dor-test/buildWithParameters?port=6789&host=dor.aws.cts.care
