@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sshagent(['aws']) {
+                sshagent(['dor-ec2']) {
                     script {
                         def invContent = "[server]\n${params.HOST}"
                         writeFile file: 'inventory.ini', text: invContent

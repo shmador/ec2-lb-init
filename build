@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+URL="http://localhost:8080"
+USER="shmador"
+TOKEN="113dfcae2d069f77aac801fa196f92d619"
+JOB="dor-test"
+PARAMS="PORT=6789&HOST=51.17.92.94"
+
+CRUMB=$(curl -s -u "$USER:$TOKEN" \
+  "$URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)")
+curl -s -u "$USER:$TOKEN" -H "$CRUMB" -X POST "$URL/job/$JOB/buildWithParameters?$PARAMS"
+
+

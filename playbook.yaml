@@ -9,7 +9,17 @@
     - name: Update port
       lineinfile:
         path: /etc/nginx/sites-available/default
-        regexp: '^\s*listen'
-        line: listen {{ lookup('ansible.builtin.env', 'PORT', default='80') }};
+        regexp: '^\s*listen\s*\d+'
+        line:     listen {{ lookup('ansible.builtin.env', 'PORT', default='80') }};
         backrefs: yes
+    - name: Update html
+      template:
+        src: https://www.sheldonbrown.com/web_sample1.html
 
+    - name: Render html
+      template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+
+  vars:
+    new_header: "<h1>Dor's page</h1>"

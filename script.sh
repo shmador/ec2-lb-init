@@ -1,1 +1,1 @@
-curl -X POST --user shmador:11b8e4644032c76fc1a7af8e096f93ce2c http://localhost:8080/job/dor-test/buildWithParameters?PORT=6789&HOST=dor.aws.cts.care
+curl -X POST --user shmador:113dfcae2d069f77aac801fa196f92d619 http://localhost:8080/job/dor-test/buildWithParameters?PORT=6789&HOST=51.17.92.94
