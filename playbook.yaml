@@ -6,15 +6,13 @@
       apt:
         name: nginx
         update_cache: yes
+
     - name: Update port
       lineinfile:
         path: /etc/nginx/sites-available/default
         regexp: '^\s*listen\s*\d+'
         line:     listen {{ lookup('ansible.builtin.env', 'PORT', default='80') }};
         backrefs: yes
-    - name: Update html
-      template:
-        src: https://www.sheldonbrown.com/web_sample1.html
 
     - name: Render html
       template:
