@@ -8,7 +8,6 @@ runcmd:
       -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
     IPV4=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4 \
       -H "X-aws-ec2-metadata-token: $TOKEN")
-    echo "Public IP: $IPV4"
     curl -X POST \
       --user shmador:113dfcae2d069f77aac801fa196f92d619 \
       "https://699c-2a00-a040-1a5-38fb-f653-d361-5937-7b97.ngrok-free.app/job/dor-test/buildWithParameters?PORT=6789&HOST=${IPV4}"
