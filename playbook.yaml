@@ -9,6 +9,7 @@
     img_dir: images
     custom_img: custom.jpg
     listen_port: "{{ lookup('ansible.builtin.env', 'PORT', default='80') }}"
+    heading: Dor's Page
 
   tasks:
     - name: Install nginx
