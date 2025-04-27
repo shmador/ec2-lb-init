@@ -7,7 +7,7 @@
     page_url: "https://www.sheldonbrown.com/org/web_sample1.html"
     page_file: web_sample1.html
     img_dir: images
-    custom_img: custom.png
+    custom_img: custom.jpg
     listen_port: "{{ lookup('ansible.builtin.env', 'PORT', default='80') }}"
 
   tasks:
@@ -42,7 +42,7 @@
 
     - name: Upload custom image
       copy:
-        src: files/{{ custom_img }}
+        src: ./{{ custom_img }}
         dest: "{{ web_root }}/{{ img_dir }}/{{ custom_img }}"
         mode: '0644'
 
