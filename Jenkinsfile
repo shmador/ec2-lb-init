@@ -56,10 +56,6 @@ pipeline {
                         returnStdout: true
                     ).trim()
 
-                    if (!instanceId) {
-                        error "🔍 No EC2 instance found with private IP ${INSTANCE_PRIVATE_IP}"
-                    }
-
                     sh """
                         aws elbv2 register-targets \
                             --region ${AWS_REGION} \
