@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Add host to known_hosts') {
             steps {
-                sshagent(['dor-ec2']) {
+                sshagent(['ansible-ssh-key']) {
                     sh """
                         mkdir -p ~/.ssh
                         chmod 700 ~/.ssh
@@ -22,7 +22,7 @@ pipeline {
                         
         stage('build') {
             steps {
-                sshagent(['dor-ec2']) {
+                sshagent(['ansible-ssh-key']) {
                     script {
                         def invContent = "[server]\n${params.HOST} ansible_user=${params.USER}"
                         writeFile file: 'inventory.ini', text: invContent
