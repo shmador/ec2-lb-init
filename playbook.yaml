@@ -8,8 +8,8 @@
     page_file: web_sample1.html
     img_dir: images
     custom_img: custom.jpg
-    listen_port: "{{ lookup('ansible.builtin.env', 'PORT', default='80') }}"
-    heading: Dor's Page
+    listen_port: "{{ lookup('ansible.builtin.env','PORT',default='80') }}"
+    heading: "Welcome to My Site"
 
   tasks:
     - name: Install nginx
@@ -28,6 +28,8 @@
       template:
         src: index.html.j2
         dest: "{{ web_root }}/index.html"
+      vars:
+        heading: "{{ heading }}"
 
     - name: Download original page
       get_url:
@@ -41,9 +43,9 @@
         state: directory
         mode: '0755'
 
-    - name: Upload custom image
+    - name: Upload custom image from controller
       copy:
-        src: ./{{ custom_img }}
+        src: "{{ playbook_dir }}/{{ custom_img }}"
         dest: "{{ web_root }}/{{ img_dir }}/{{ custom_img }}"
         mode: '0644'
 
