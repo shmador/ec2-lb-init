@@ -1,29 +1,59 @@
-- name: config nginx
+- name: config nginx + custom image
   hosts: server
   become: yes
+
+  vars:
+    web_root: /var/www/html
+    page_url: "https://www.sheldonbrown.com/org/web_sample1.html"
+    page_file: web_sample1.html
+    img_dir: images
+    custom_img: custom.png
+    listen_port: "{{ lookup('ansible.builtin.env', 'PORT', default='80') }}"
+
   tasks:
     - name: Install nginx
       apt:
         name: nginx
         update_cache: yes
 
-    - name: Update port
+    - name: Update nginx listen port
       lineinfile:
         path: /etc/nginx/sites-available/default
         regexp: '^\s*listen\s*\d+'
-        line:     listen {{ lookup('ansible.builtin.env', 'PORT', default='80') }};
+        line:     listen {{ listen_port }};
         backrefs: yes
 
-    - name: Render html
+    - name: Render index.html from template
       template:
         src: index.html.j2
-        dest: /var/www/html/index.html
+        dest: "{{ web_root }}/index.html"
+
+    - name: Download original page
+      get_url:
+        url: "{{ page_url }}"
+        dest: "{{ web_root }}/{{ page_file }}"
+        mode: '0644'
+
+    - name: Ensure images directory exists
+      file:
+        path: "{{ web_root }}/{{ img_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Upload custom image
+      copy:
+        src: files/{{ custom_img }}
+        dest: "{{ web_root }}/{{ img_dir }}/{{ custom_img }}"
+        mode: '0644'
+
+    - name: Replace <img> src in downloaded HTML
+      replace:
+        path: "{{ web_root }}/{{ page_file }}"
+        regexp: '(<img\s+[^>]*src=")[^"]*(")'
+        replace: '\1/{{ img_dir }}/{{ custom_img }}\2'
 
     - name: Restart nginx
       service:
         name: nginx
         state: restarted
 
-  vars:
-    page_url: "https://www.sheldonbrown.com/web_sample1.html"
-    heading: "Welcome to My Site"
