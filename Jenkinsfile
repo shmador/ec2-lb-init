@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'HOST')
+        string(name: 'HOST', defaultValue: 'dor.aws.cts.care')
         string(name: 'PORT', defaultValue: '6789')
         string(name: 'USER', defaultValue: 'ubuntu')
     }
