@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_REGION = 'il-central-1'
-        TARGET_GROUP_ARN = 'arn:aws:elasticloadbalancing:il-central-1:314525640319:targetgroup/tg-imtec/31781c97ed4fa20c'
+        TARGET_GROUP_ARN = 'arn:aws:elasticloadbalancing:il-central-1:314525640319:targetgroup/tg-umat-haash/d6712b9674576b51'
         INSTANCE_PRIVATE_IP = "${params.HOST}"
     }
 
