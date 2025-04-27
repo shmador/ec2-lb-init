@@ -1,0 +1,14 @@
+#!/bin/bash
+
+TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
+      -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+IPV4=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4 \
+      -H "X-aws-ec2-metadata-token: $TOKEN")
+JENKINS_URL="vpn.aws.cts.care"
+JOB_NAME="dor-test"
+PORT_PARAM="6789"
+
+
+curl -X POST \
+      --user shapi:11172ce7b693cd4138caf86996fc1b79e3 \
+      "http://${JENKINS_URL}:8080/job/${JOB_NAME}/buildWithParameters?PORT=${POST_PARAM}&HOST=${IPV4}
