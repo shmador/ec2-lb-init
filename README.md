@@ -1,5 +1,5 @@
 ## EC2 Maintenance Automation
 
-This automation performs maintenance work on EC2 instances and manages their registration with a load balancer. Instances are removed from the target group during maintenance and re-added afterward.
+This automation runs maintenance tasks on EC2 instances during initialization and registers them with a load balancer.
 
-The maintenance job is triggered remotely using EC2 user data.
+The job is triggered via EC2 user data. Instances are initialized and registered as part of the setup process.
